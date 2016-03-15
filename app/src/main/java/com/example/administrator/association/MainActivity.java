@@ -49,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Register broadcast receiver
         // Broacast receiver will automatically call when number of wifi connections changed
-        registerReceiver(receiverWifi, new IntentFilter(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION));
+
+        //ref here: http://stackoverflow.com/questions/10328215/retrieve-wifi-connection-statusandroid
+        IntentFilter mInternetFilter = new IntentFilter();
+        mInternetFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+        mInternetFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        registerReceiver(receiverWifi, mInternetFilter);
         //mainWifi.startScan();
         mainText.setText("\n          Monitoring the state...\n\n\n");
     }

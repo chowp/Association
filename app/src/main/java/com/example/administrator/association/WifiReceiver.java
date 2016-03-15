@@ -3,6 +3,7 @@ package com.example.administrator.association;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiManager;
@@ -40,12 +41,13 @@ public class WifiReceiver extends BroadcastReceiver {
             sb.append((wifiList.get(i)).toString());
             sb.append("\n\n");
         }*/
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss     ");
+        Date curDate = new Date(System.currentTimeMillis()); //get the current time
+        String str = formatter.format(curDate);
         if (intent.getAction().equals(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION))
         {
             SupplicantState state = (SupplicantState) intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss     ");
-            Date curDate = new Date(System.currentTimeMillis()); //get the current time
-            String str = formatter.format(curDate);
+
             //new AlertDialog.Builder(c).setTitle("state type").setMessage(state.toString()).show();
             makeText(c.getApplicationContext(), state.toString(), LENGTH_LONG).show();
             switch (state)
@@ -92,6 +94,11 @@ public class WifiReceiver extends BroadcastReceiver {
                 default:
                     sb.append("  " + str+ "UNKOWN STATE\n\n");
             }
+        }else if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION))
+        {
+            NetworkInfo.DetailedState state = ((NetworkInfo)intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO)).getDetailedState();
+            makeText(c.getApplicationContext(), state.toString(), LENGTH_LONG).show();
+            sb.append("  "+ str + state.toString() + "\n");
         }
         MainActivity.mainText.append(sb);
     }
