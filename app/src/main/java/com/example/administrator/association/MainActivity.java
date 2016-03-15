@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Register broadcast receiver
         // Broacast receiver will automatically call when number of wifi connections changed
-        registerReceiver(receiverWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-        mainWifi.startScan();
-        mainText.setText("Starting Scan...");
+        registerReceiver(receiverWifi, new IntentFilter(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION));
+        //mainWifi.startScan();
+        mainText.setText("Monitoring the state...");
     }
 
     @Override
