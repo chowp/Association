@@ -13,6 +13,10 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 import android.app.AlertDialog;
+import android.widget.Toast;
+
+import static android.widget.Toast.*;
+
 /**
  * Created by Administrator on 3/15/2016.
  */
@@ -43,6 +47,7 @@ public class WifiReceiver extends BroadcastReceiver {
             Date curDate = new Date(System.currentTimeMillis()); //get the current time
             String str = formatter.format(curDate);
             //new AlertDialog.Builder(c).setTitle("state type").setMessage(state.toString()).show();
+            makeText(c.getApplicationContext(), state.toString(), LENGTH_LONG).show();
             switch (state)
             {
                 case ASSOCIATED:
