@@ -12,6 +12,7 @@ import com.example.administrator.association.MainActivity;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
+import android.app.AlertDialog;
 /**
  * Created by Administrator on 3/15/2016.
  */
@@ -41,38 +42,52 @@ public class WifiReceiver extends BroadcastReceiver {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss     ");
             Date curDate = new Date(System.currentTimeMillis()); //get the current time
             String str = formatter.format(curDate);
+            //new AlertDialog.Builder(c).setTitle("state type").setMessage(state.toString()).show();
             switch (state)
             {
                 case ASSOCIATED:
-                    sb.append(str + " Association completed!\n");
+                    sb.append("  " + str + "ASSOCIATED\n");
+                    break;
                 case ASSOCIATING:
-                    sb.append(str + "ASSOCIATING\n");
+                    sb.append("  " + str + "ASSOCIATING\n");
+                    break;
                 case AUTHENTICATING:
-                    sb.append(str + "AUTHENTICATING \n");
+                    sb.append("  " + str + "AUTHENTICATING \n");
+                    break;
                 case COMPLETED:
-                    sb.append(str + "COMPLETED \n");
+                    sb.append("  " + str + "COMPLETED \n");
+                    break;
                 case DISCONNECTED:
-                    sb.append(str +  "DISCONNECTED \n");
+                    sb.append("  " + str +  "DISCONNECTED \n");
+                    break;
                 case DORMANT:
-                    sb.append(str + "DORMANT \n");
+                    sb.append("  " + str + "DORMANT \n");
+                    break;
                 case FOUR_WAY_HANDSHAKE:
-                    sb.append(str + "FOUR_WAY_HANDSHAKE \n");
+                    sb.append("  " + str + "FOUR_WAY_HANDSHAKE \n");
+                    break;
                 case GROUP_HANDSHAKE:
-                    sb.append(str + "GROUP_HANDSHAKE \n");
+                    sb.append("  " + str + "GROUP_HANDSHAKE \n");
+                    break;
                 case INACTIVE:
-                    sb.append(str + "INACTIVE \n");
+                    sb.append("  " + str + "INACTIVE \n");
+                    break;
                 case INTERFACE_DISABLED:
-                    sb.append(str + "INTERFACE_DISABLED \n");
+                    sb.append("  " + str + "INTERFACE_DISABLED \n");
+                    break;
                 case INVALID:
-                    sb.append(str + "INVALID\n");
+                    sb.append("  " + str + "INVALID\n");
+                    break;
                 case SCANNING:
-                    sb.append(str + "SCANNING\n");
+                    sb.append("  " + str + "SCANNING\n");
+                    break;
                 case UNINITIALIZED:
-                    sb.append(str + "UNINITIALIZED\n");
+                    sb.append("  " + str + "UNINITIALIZED\n");
+                    break;
                 default:
-                    sb.append(str+ "UNKOWN STATE\n\n");
+                    sb.append("  " + str+ "UNKOWN STATE\n\n");
             }
         }
-        MainActivity.mainText.setText(sb);
+        MainActivity.mainText.append(sb);
     }
 }
