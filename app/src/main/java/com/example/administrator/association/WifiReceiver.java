@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
 import com.example.administrator.association.MainActivity;
@@ -47,10 +48,11 @@ public class WifiReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION))
         {
             SupplicantState state = (SupplicantState) intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
-
+            String ssid = MainActivity.mainWifi.getConnectionInfo().getSSID();
             //new AlertDialog.Builder(c).setTitle("state type").setMessage(state.toString()).show();
-            makeText(c.getApplicationContext(), state.toString(), LENGTH_LONG).show();
-            switch (state)
+            makeText(c.getApplicationContext(), ssid + ":" + state.toString(), LENGTH_LONG).show();
+            sb.append("  " + ssid + ":" + str + state.toString() + "\n");
+            /*switch (state)
             {
                 case ASSOCIATED:
                     sb.append("  " + str + "ASSOCIATED\n");
@@ -93,12 +95,13 @@ public class WifiReceiver extends BroadcastReceiver {
                     break;
                 default:
                     sb.append("  " + str+ "UNKOWN STATE\n\n");
-            }
+            }*/
         }else if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION))
         {
             NetworkInfo.DetailedState state = ((NetworkInfo)intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO)).getDetailedState();
-            makeText(c.getApplicationContext(), state.toString(), LENGTH_LONG).show();
-            sb.append("  "+ str + state.toString() + "\n");
+            String ssid = MainActivity.mainWifi.getConnectionInfo().getSSID();
+            makeText(c.getApplicationContext(), ssid + "*"+state.toString(), LENGTH_LONG).show();
+            sb.append("  "+ ssid+"*" + str + state.toString() + "\n");
         }
         MainActivity.mainText.append(sb);
     }
