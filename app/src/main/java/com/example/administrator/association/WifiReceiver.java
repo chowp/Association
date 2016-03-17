@@ -44,14 +44,15 @@ public class WifiReceiver extends BroadcastReceiver {
         }*/
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss     ");
         Date curDate = new Date(System.currentTimeMillis()); //get the current time
-        String str = formatter.format(curDate);
+        //String str = formatter.format(curDate);
+        long str = System.currentTimeMillis();
         if (intent.getAction().equals(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION))
         {
             SupplicantState state = (SupplicantState) intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
             String ssid = MainActivity.mainWifi.getConnectionInfo().getSSID();
             //new AlertDialog.Builder(c).setTitle("state type").setMessage(state.toString()).show();
             makeText(c.getApplicationContext(), ssid + ":" + state.toString(), LENGTH_LONG).show();
-            sb.append("  " + ssid + ":" + str + state.toString() + "\n");
+            sb.append(" # " + str + "  " + state.toString() + "  -->" + ssid   + "\n");
             /*switch (state)
             {
                 case ASSOCIATED:
@@ -101,7 +102,7 @@ public class WifiReceiver extends BroadcastReceiver {
             NetworkInfo.DetailedState state = ((NetworkInfo)intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO)).getDetailedState();
             String ssid = MainActivity.mainWifi.getConnectionInfo().getSSID();
             makeText(c.getApplicationContext(), ssid + "*"+state.toString(), LENGTH_LONG).show();
-            sb.append("  "+ ssid+"*" + str + state.toString() + "\n");
+            sb.append(" & " + str + "  " + state.toString() + "  -->"+ ssid + "\n");
         }
         MainActivity.mainText.append(sb);
     }
